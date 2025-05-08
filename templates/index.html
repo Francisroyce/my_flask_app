@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Breast Cancer Risk Tool – Educate & Predict</title>
+  <style>
+    :root {
+      --primary: #005f73;
+      --secondary: #0a9396;
+      --accent: #94d2bd;
+      --light: #f1faee;
+      --dark: #001219;
+      --text: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: var(--light);
+      color: var(--text);
+      line-height: 1.7;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease-in;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 0 20px;
+      animation: fadeInUp 1.2s ease-in;
+    }
+
+    .info-section, .form-section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    }
+
+    .info-section {
+      border-left: 6px solid var(--accent);
+    }
+
+    .info-section h2, .form-section h2 {
+      color: var(--primary);
+      margin-top: 0;
+    }
+
+    .form-section h2 {
+      color: var(--secondary);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 15px;
+      background: var(--secondary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 25px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      font-size: 1rem;
+    }
+
+    input[type="submit"]:hover {
+      background: var(--primary);
+      transform: scale(1.02);
+    }
+
+    .prediction {
+      margin-top: 20px;
+      background: #e0f7ea;
+      padding: 20px;
+      border-radius: 6px;
+      border: 1px solid #b2dfdb;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+      color: #777;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Breast Cancer Risk Predictor</h1>
+    <p>Empowering you with knowledge to take early steps toward breast health and prevention. Your journey to awareness begins here.</p>
+  </header>
+
+  <main class="container">
+    <section class="info-section">
+      <h2>Why Awareness Is Vital</h2>
+      <p>Every year, millions of women are diagnosed with breast cancer. The good news? Early detection and proactive education can dramatically increase survival rates.</p>
+
+      <h2>What You Should Know</h2>
+      <p>Breast cancer starts when cells in the breast begin to grow out of control. Regular screenings, understanding symptoms, and lifestyle adjustments can make a world of difference.</p>
+
+      <h2>How This Tool Supports You</h2>
+      <p>This intelligent form offers AI-powered predictions based on your clinical inputs. It’s designed to support not replace your doctor’s expertise. Think of it as a stepping stone toward informed conversations with your healthcare provider.</p>
+
+      <h2>Friendly Reminder</h2>
+      <p>This is not a diagnosis. Please consult a licensed physician for professional evaluation and treatment. Your health deserves nothing less.</p>
+    </section>
+
+    <section class="form-section">
+      <h2>Check Your Risk Factors</h2>
+      <form method="POST" action="/predict">
+        <label for="radius_mean">Radius Mean (mm):</label>
+        <input type="number" id="radius_mean" name="radius_mean" step="0.01" required>
+
+        <label for="texture_mean">Texture Mean:</label>
+        <input type="number" id="texture_mean" name="texture_mean" step="0.01" required>
+
+        <label for="perimeter_mean">Perimeter Mean (mm):</label>
+        <input type="number" id="perimeter_mean" name="perimeter_mean" step="0.01" required>
+
+        <label for="smoothness_mean">Smoothness Mean:</label>
+        <input type="number" id="smoothness_mean" name="smoothness_mean" step="0.01" required>
+
+        <label for="compactness_mean">Compactness Mean:</label>
+        <input type="number" id="compactness_mean" name="compactness_mean" step="0.01" required>
+
+        <input type="submit" value="Predict My Risk">
+      </form>
+
+      {% if prediction %}
+        <div class="prediction">
+          <h3>Your Risk Prediction:</h3>
+          <p>{{ prediction }}</p>
+        </div>
+      {% endif %}
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Breast Cancer Awareness Initiative. Designed with compassion and purpose
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Risk Result – Breast Cancer Prediction</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f1faee;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #005f73;
+    }
+
+    .result {
+      background: #e0f7ea;
+      padding: 20px;
+      border-left: 5px solid #0a9396;
+      margin: 20px 0;
+      font-size: 1.2rem;
+    }
+
+    .message {
+      margin-top: 30px;
+      font-size: 1.1rem;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 30px;
+      text-decoration: none;
+      background: #0a9396;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+    }
+
+    a:hover {
+      background: #005f73;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Breast Cancer Risk Prediction Result</h1>
+
+    <div class="result">
+      <strong>{{ prediction }}</strong>
+    </div>
+
+    <div class="message">
+      <p>{{ confidence }}</p>
+
+      <p><strong>Remember:</strong> This is not a medical diagnosis. It is a supportive tool to help you stay proactive with your health.</p>
+
+      <p>We encourage you to schedule regular checkups with your healthcare provider. Early detection can make a difference. Whether you're at risk or not, awareness and preventive care are powerful tools.</p>
+
+      <p>You are strong, you are not alone, and your health is worth every step.</p>
+    </div>
+
+    <a href="/">Check Another Risk</a>
+  </div>
+
+</body>
+</html>
